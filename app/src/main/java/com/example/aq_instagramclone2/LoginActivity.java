@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -27,6 +29,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         edtLoginEmail = findViewById(R.id.edtLoginEmail);
         edtLoginPassword = findViewById(R.id.edtLoginPassword);
+        edtLoginPassword.setOnKeyListener(new View.OnKeyListener() { // THIS IS PUT TO THE PASSWORD BECAUSE THE LAST THING THAT USER PUT WHEN SIGNING IS PASSWORD...
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+                    onClick(btnLoginActivity); // this is because of the button view. it is a sub class of the view class..
+
+                }
+                return false;
+            }
+
+        });
         btnLoginActivity = findViewById(R.id.btnLoginLogin);
         btnSignUpLoginActivity= findViewById(R.id.btnLoginSignUp);
 
@@ -70,7 +84,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             case R.id.btnLoginSignUp:
 
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class); // this must be put in oder to move in to the next activity window...
+                startActivity(intent);
+
                 break;
+
+        }
+
+    }
+
+    public void rootLayoutClicked(View view) {
+
+        try {
+
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();// it is going to output some values to the log.
 
         }
 
