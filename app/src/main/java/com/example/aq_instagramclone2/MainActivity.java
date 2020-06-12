@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSignUp.setOnClickListener(this);
         btnLogIn.setOnClickListener(this); //Remember THis Must be Within the On create Method..
 
+        if(ParseUser.getCurrentUser() != null){
+            ParseUser.getCurrentUser().logOut();// this let the user to sign up whenever the app runs.so as to log out the user that already signed up or Logged in.
+        }
+
 
     }
 
@@ -50,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 appUser.setUsername(edtUserName.getText().toString());
                 appUser.setPassword(edtPassword.getText().toString());
 
+                final ProgressDialog progressDialog = new ProgressDialog(this);
+                progressDialog.setMessage("Signing Up " + edtUserName.getText().toString());
+                progressDialog.show();
+
                 appUser.signUpInBackground(new SignUpCallback() {// Signing up to the server.
                     @Override
                     public void done(ParseException e) {
@@ -61,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         } else {
                             FancyToast.makeText(MainActivity.this,"There was an Error "+ e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                         }
+
+                        progressDialog.dismiss(); // we do not need to show the progress bar when signed up.
 
                     }
                 });
