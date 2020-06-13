@@ -67,8 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(user != null && e == null){
 
                             FancyToast.makeText(LoginActivity.this, user.getUsername() + " is logged in successfully.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
-
-
+                            transitionToSocialMediaActivity();
 
                         }else{
 
@@ -86,6 +85,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class); // this must be put in oder to move in to the next activity window...
                 startActivity(intent);
+                ParseUser.getCurrentUser().logOut();
+
 
                 break;
 
@@ -106,5 +107,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         }
 
+    }
+
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(LoginActivity.this,SocialMediaActivity.class);
+        startActivity(intent);
     }
 }

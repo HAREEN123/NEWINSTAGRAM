@@ -52,8 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSignUp.setOnClickListener(this);
         btnLogIn.setOnClickListener(this); //Remember THis Must be Within the On create Method..
 
-        if (ParseUser.getCurrentUser() != null) {
-            ParseUser.getCurrentUser().logOut();// this let the user to sign up whenever the app runs.so as to log out the user that already signed up or Logged in.
+        if (ParseUser.getCurrentUser() != null) { //  this means the user signed up or logged in . now we have the social media activity.
+            //ParseUser.getCurrentUser().logOut();// this let the user to sign up whenever the app runs.so as to log out the user that already signed up or Logged in.
+            transitionToSocialMediaActivity();
         }
 
 
@@ -72,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (edtEmail.getText().toString().equals("") || edtUserName.getText().toString().equals("") || edtPassword.getText().toString().equals("")) {
                     // For Bux - Requiring all fields to be entered...!!
                     FancyToast.makeText(MainActivity.this, "Email, Username, Password is required!", FancyToast.LENGTH_LONG, FancyToast.INFO, true).show();
+
                 } else {
 
                     final ProgressDialog progressDialog = new ProgressDialog(this);
@@ -84,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             if (e == null) {
 
                                 FancyToast.makeText(MainActivity.this, appUser.get("username") + " is signed up successfully.", FancyToast.LENGTH_LONG, FancyToast.SUCCESS, true).show();
+                                transitionToSocialMediaActivity();
 
 
                             } else {
@@ -120,5 +123,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();// it is going to output some values to the log.
 
         }
+    }
+
+    private void transitionToSocialMediaActivity(){
+        Intent intent = new Intent(MainActivity.this,SocialMediaActivity.class);
+        startActivity(intent);
     }
 }
