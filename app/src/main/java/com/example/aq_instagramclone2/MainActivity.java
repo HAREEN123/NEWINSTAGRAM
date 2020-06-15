@@ -1,20 +1,15 @@
 package com.example.aq_instagramclone2;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SpinnerAdapter;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -128,5 +123,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void transitionToSocialMediaActivity(){
         Intent intent = new Intent(MainActivity.this,SocialMediaActivity.class);
         startActivity(intent);
+        finish();
     }
 }
