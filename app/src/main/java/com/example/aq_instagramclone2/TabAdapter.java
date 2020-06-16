@@ -1,7 +1,5 @@
 package com.example.aq_instagramclone2;
 
-import android.widget.Switch;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
